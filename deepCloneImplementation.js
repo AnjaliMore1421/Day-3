@@ -5,12 +5,12 @@
 // - Avoids reference sharing
 
 function deepClone(obj) {
-  // Handle null or primitive values
+  // If obj is null or a primitive (number, string, boolean), return it directly
   if (obj === null || typeof obj !== "object") {
     return obj;
   }
 
-  // Handle arrays
+  // If obj is an array, create a new array and recursively clone each element
   if (Array.isArray(obj)) {
     let copy = [];
     for (let i = 0; i < obj.length; i++) {
@@ -19,7 +19,7 @@ function deepClone(obj) {
     return copy;
   }
 
-  // Handle objects
+  // If obj is an object, create a new object and recursively clone each property
   let copy = {};
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -30,7 +30,7 @@ function deepClone(obj) {
   return copy;
 }
 
-//  Example
+// Example usage
 
 const original = {
   name: "Anjali",
@@ -40,15 +40,15 @@ const original = {
   hobbies: ["reading", "coding"]
 };
 
+// Create a deep clone
 const cloned = deepClone(original);
 
-// Modify cloned object
-cloned.address.city = "Mumbai";
-cloned.hobbies.push("music");
+// Modify the cloned object
+cloned.address.city = "Mumbai"; // Does not affect original
+cloned.hobbies.push("music");   // Original array remains unchanged
 
 console.log("Original:", original);
-// { name: "Anjali", address: { city: "Pune" }, hobbies: ["reading", "coding"] }
+// Output: { name: "Anjali", address: { city: "Pune" }, hobbies: ["reading", "coding"] }
 
 console.log("Cloned:", cloned);
-// { name: "Anjali", address: { city: "Mumbai" }, hobbies: ["reading", "coding", "music"] }
-
+// Output: { name: "Anjali", address: { city: "Mumbai" }, hobbies: ["reading", "coding", "music"] }
